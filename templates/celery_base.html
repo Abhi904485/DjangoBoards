@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Simple is Better Than Complex</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: 20px auto;
+        }
+    </style>
+    <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
+    <script src="{% static 'jquery/jquery-3.5.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<h1>Django Celery Example</h1>
+<a href="{% url 'my_celery_progress_bar:user-list' %}">Users List</a> /
+<a href="{% url 'my_celery_progress_bar:create-user1' %}">Generate Random Users</a>
+<hr>
+
+{% if messages %}
+    {% for message in messages %}
+        <p style="color: green">{{ message }}</p>
+    {% endfor %}
+    <hr>
+{% endif %}
+
+{% block content %}
+{% endblock %}
+</body>
+</html>

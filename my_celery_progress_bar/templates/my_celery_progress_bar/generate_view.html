@@ -1,0 +1,15 @@
+{% extends 'celery_base.html' %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tbody>
+            <tr>
+                <th><label for="id_total">Total:</label></th>
+                <td><input type="number" name="total" required="" id="id_total"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

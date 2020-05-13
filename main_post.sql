@@ -1,0 +1,10 @@
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (3, 'this is first post about Reactive JS', '2020-04-24 12:59:01.021676', '2020-04-27 12:44:58.975758', 1, 4, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (4, 'this is first post about Angular Filters', '2020-04-24 14:47:10.067625', '2020-04-27 12:44:51.798069', 1, 3, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (5, 'this is first post about django signals', '2020-04-27 12:45:11.263642', '2020-04-27 12:45:11.263669', 1, 5, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (6, 'this is second post about django signals', '2020-04-27 12:45:30.322198', '2020-04-27 12:45:30.322225', 1, 5, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (7, 'this is first post about Ruby Topic', '2020-04-27 15:34:18.434073', '2020-04-27 15:34:18.434099', 1, 6, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (9, 'this is first post on Angular Service ..', '2020-04-29 10:54:32.261131', '2020-04-29 10:54:32.276278', 1, 8, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (10, 'this is first post on Ruby Service', '2020-04-29 10:55:07.824379', '2020-04-29 10:55:07.839119', 1, 9, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (11, 'this is first post on react service', '2020-04-29 10:56:23.743670', '2020-04-29 10:56:23.758116', 1, 10, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (12, 'this is first post on Angular object', '2020-04-29 11:22:23.431173', '2020-04-29 11:22:23.448166', 1, 11, null);
+INSERT INTO post (id, message, created_at, updated_at, created_by, topic, updated_by) VALUES (13, 'This is first post About Django Forms', '2020-04-29 12:21:55.731502', '2020-04-29 12:21:55.746290', 1, 12, null);

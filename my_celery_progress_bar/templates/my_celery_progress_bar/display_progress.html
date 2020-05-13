@@ -1,0 +1,33 @@
+{% extends 'celery_base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {% if task_id %}
+            <div class='progress-wrapper'>
+                <div id='progress-bar' class='progress-bar-striped'
+                     style="background-color: #68a9ef; width: 0%;">&nbsp;
+                </div>
+            </div>
+            <div id="progress-bar-message">Waiting for progress to start...</div>
+        {% endif %}
+        <div id="celery-result"></div>
+    </div>
+    <script>
+        var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+
+        function get_users() {
+            window.location.replace('{% url 'my_celery_progress_bar:user-list' %}')
+        }
+
+        function customProgress(progressBarElement, progressBarMessageElement, progress) {
+            progressBarElement.style.backgroundColor = '#68a9ef';
+            progressBarElement.style.width = progress.percent + "%";
+            progressBarMessageElement.innerHTML = progress.current + ' of ' + progress.total + ' processed. '
+        }
+
+        CeleryProgressBar.initProgressBar(progressUrl, {
+            onProgress: customProgress,
+            onSuccess: get_users
+        });
+    </script>
+{% endblock %}
