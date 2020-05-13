@@ -6,7 +6,7 @@ from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import User
-from .forms import UserCreationForm, UserLoginForm, PasswordResetForm, PasswordResetConfirm, UserChangeForm
+from .forms import UserCreationForm, UserLoginForm, PasswordResetForm, PasswordResetConfirm, PasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
@@ -179,8 +179,8 @@ def password_reset_complete(request):
 @login_required
 def change_password(request):
     if request.method == "POST":
-        user_change_form = UserChangeForm(request.POST)
-        if user_change_form.is_valid():
+        password_change_form = PasswordChangeForm(request.POST)
+        if password_change_form.is_valid():
             password1 = request.POST['password1']
             password2 = request.POST['password2']
             email = request.user.email
@@ -192,15 +192,14 @@ def change_password(request):
                 return redirect('password_change_done')
             else:
                 messages.error(request, "Old password is Wrong ! Please Enter correct old password ")
-                return render(request, 'password_change.html', context={'form': user_change_form})
+                return render(request, 'password_change.html', context={'form': password_change_form})
         else:
             messages.error(request, "Password and Confirm Password are mandatory Fields")
-            return render(request, 'password_change.html', context={'form': user_change_form})
-
+            return render(request, 'password_change.html', context={'form': password_change_form})
 
     else:
-        user_change_form = UserChangeForm()
-        return render(request, 'password_change.html', context={'form': user_change_form})
+        password_change_form = PasswordChangeForm()
+        return render(request, 'password_change.html', context={'form': password_change_form})
 
 
 def change_password_done(request):

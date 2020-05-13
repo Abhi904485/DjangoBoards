@@ -92,7 +92,7 @@ class GenerateRandomUserForm(forms.Form):
     total = forms.IntegerField(validators=[MaxValueValidator(500)])
 
 
-class UserChangeForm(forms.Form):
+class PasswordChangeForm(forms.Form):
     password1 = forms.CharField(label="Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
                                 error_messages={'required': "Please Enter old password"})
