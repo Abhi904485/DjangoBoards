@@ -147,7 +147,6 @@ def password_reset_confirm(request, uidb64, token):
             return render(request, 'password_reset_confirm.html',
                           context={'validlink': validlink, 'form': password_reset_confirm_form, 'user': user})
 
-
     else:
         if user:
             if token == reset_url_token:
