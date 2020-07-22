@@ -17,3 +17,9 @@ def create_random_users(total):
                                   meta={'current': i, 'total': total, 'percent': percent})
         User.objects.create_user(email=email, username=username, password=password)
     return "{} random user created with success".format(total)
+
+
+@shared_task
+def send_mail(mail):
+    print(f'An Email is sent to {mail}')
+    return f"{mail} sent"

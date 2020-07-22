@@ -28,7 +28,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv())
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'accounts',
     'my_celery_progress_bar',
     'celery_progress',
+    'django_celery_results',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -148,9 +150,67 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='xyz@gmail.com', cast=str)
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="password", cast=str)
 EMAIL_PORT = config('EMAIL_PORT', default=465, cast=int)
 
-CELERY_BROKER_URL = config('', default='redis://localhost:6379', cast=str)
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379', cast=str)
 CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379', cast=str)
 CELERY_ACCEPT_CONTENT = config('CELERY_ACCEPT_CONTENT', default=['application/json'], cast=Csv())
 CELERY_TASK_SERIALIZER = config('CELERY_TASK_SERIALIZER', default='json', cast=str)
 CELERY_RESULT_SERIALIZER = config('CELERY_RESULT_SERIALIZER', default='json', cast=str)
 CELERY_TIMEZONE = config('CELERY_TIMEZONE', default='Asia/Kolkata', cast=str)
+CELERY_CACHE_BACKEND = "django-cache"
+
+# CELERY_BEAT_SCHEDULE = {
+#     "every_3_seconds": {
+#         'task': 'my_celery_progress_bar.tasks.send_mail',
+#         'schedule': 3,
+#         'args': ('Abhishek@gmail.com',)
+#     }
+# }
+
+
+# CELERY_BEAT_SCHEDULE = {
+#  'send-summary-every-hour': {
+#        'task': 'summary',
+#         # There are 4 ways we can handle time, read further
+#        'schedule': 3600.0,
+#         # If you're using any arguments
+#        'args': (‘We don’t need any’,),
+#     },
+#     # Executes every Friday at 4pm
+#     'send-notification-on-friday-afternoon': {
+#          'task': 'my_app.tasks.send_notification',
+#          'schedule': crontab(hour=16, day_of_week=5),
+#         },
+
+# }
+
+
+# from celery.schedules import solar
+#
+# CELERY_BEAT_SCHEDULE = {
+#     'send-notification-on-friday-afternoon': {
+#         'task': 'my_app.tasks.send_notification',
+#         'schedule': solar('sunset', -37.81753, 144.96715),
+#     },
+# }
+
+
+# from celery.task import periodic_task
+# from datetime import timedelta
+#
+# @periodic_task(run_every=timedelta(seconds=30))
+# def every_30_seconds():
+#     print("Running periodic task!")
+
+
+
+
+# from celery.schedules import crontab
+# from celery.task import periodic_task
+#
+# @periodic_task(run_every=crontab(hour=7, minute=30, day_of_week=1))
+# def every_monday_morning():
+#     print("Execute every Monday at 7:30AM.")
+
+
+
+# https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html#introduction

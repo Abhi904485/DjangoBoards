@@ -69,9 +69,11 @@ class PasswordResetForm(forms.Form):
 
 class PasswordResetConfirm(forms.Form):
     password1 = forms.CharField(label="Password", max_length=128, strip=False,
-                                widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True)
+                                widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
+                                error_messages={'required': 'this should match'})
     password2 = forms.CharField(label="Confirm Password", max_length=128, strip=False,
-                                widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True)
+                                widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
+                                error_messages={'required': 'this should match'})
 
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
@@ -93,9 +95,9 @@ class GenerateRandomUserForm(forms.Form):
 
 
 class PasswordChangeForm(forms.Form):
-    password1 = forms.CharField(label="Password", max_length=128, strip=False,
+    password1 = forms.CharField(label="Old Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
                                 error_messages={'required': "Please Enter old password"})
-    password2 = forms.CharField(label="Confirm Password", max_length=128, strip=False,
+    password2 = forms.CharField(label="New Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
                                 error_messages={"required": "Enter the new password "})
