@@ -9,7 +9,7 @@ class HomeTests(TestCase):
 
     def setUp(self):
         self.board = Board.objects.create(name="test", description="test")
-        self.url = reverse('home')
+        self.url = reverse('boards:home')
         self.view = resolve('/')
         self.response = self.client.get(self.url)
 
@@ -23,9 +23,9 @@ class HomeTests(TestCase):
         self.assertNotEquals(self.view.func, board_topics)
 
     def test_home_view_success_contains_link_to_topics_page(self):
-        topics_url = reverse('board_topics', kwargs={'pk': self.board.pk})
+        topics_url = reverse('boards:board_topics', kwargs={'pk': self.board.pk})
         self.assertContains(self.response, topics_url)
 
     def test_home_view_not_found_contains_link_to_topics_page(self):
-        topics_url = reverse('board_topics', kwargs={'pk': 99})
+        topics_url = reverse('boards:board_topics', kwargs={'pk': 99})
         self.assertNotContains(self.response, topics_url)

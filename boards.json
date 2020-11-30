@@ -1,0 +1,462 @@
+[
+  {
+    "model": "boards.board",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "description": "this is python board"
+    }
+  },
+  {
+    "model": "boards.board",
+    "pk": 2,
+    "fields": {
+      "name": "React",
+      "description": "this is react board"
+    }
+  },
+  {
+    "model": "boards.board",
+    "pk": 3,
+    "fields": {
+      "name": "Angular",
+      "description": "This is Angular board"
+    }
+  },
+  {
+    "model": "boards.board",
+    "pk": 4,
+    "fields": {
+      "name": "Ruby",
+      "description": "this is Ruby  Board"
+    }
+  },
+  {
+    "model": "boards.board",
+    "pk": 5,
+    "fields": {
+      "name": "Board Without Posts",
+      "description": "Board Without Posts Description"
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 3,
+    "fields": {
+      "subject": "Angular Filter",
+      "last_updated": "2020-11-26T20:39:55.705Z",
+      "board": 3,
+      "starter": 1,
+      "views": 1
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 4,
+    "fields": {
+      "subject": "React JS",
+      "last_updated": "2020-11-22T15:59:38.897Z",
+      "board": 2,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 5,
+    "fields": {
+      "subject": "Django Signals",
+      "last_updated": "2020-11-26T20:42:15.928Z",
+      "board": 1,
+      "starter": 1,
+      "views": 1
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 6,
+    "fields": {
+      "subject": "Ruby Topic",
+      "last_updated": "2020-04-27T15:33:55.433Z",
+      "board": 4,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 8,
+    "fields": {
+      "subject": "Angular Service ",
+      "last_updated": "2020-11-26T20:41:21.120Z",
+      "board": 3,
+      "starter": 1,
+      "views": 1
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 9,
+    "fields": {
+      "subject": "Ruby Service",
+      "last_updated": "2020-11-26T10:04:02.916Z",
+      "board": 4,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 10,
+    "fields": {
+      "subject": "React Service",
+      "last_updated": "2020-11-22T15:59:18.097Z",
+      "board": 2,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 11,
+    "fields": {
+      "subject": "Angular object",
+      "last_updated": "2020-04-29T11:22:23.415Z",
+      "board": 3,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 12,
+    "fields": {
+      "subject": "Django Forms",
+      "last_updated": "2020-11-26T20:37:42.899Z",
+      "board": 1,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 13,
+    "fields": {
+      "subject": "Django GEO",
+      "last_updated": "2020-11-26T20:37:23.297Z",
+      "board": 1,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 15,
+    "fields": {
+      "subject": "Angular Test1",
+      "last_updated": "2020-11-26T09:31:16.953Z",
+      "board": 3,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.topic",
+    "pk": 16,
+    "fields": {
+      "subject": "Django Views",
+      "last_updated": "2020-11-26T11:42:50.426Z",
+      "board": 1,
+      "starter": 1,
+      "views": 0
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 3,
+    "fields": {
+      "message": "this is first post about Reactive JS",
+      "created_at": "2020-04-24T12:59:01.021Z",
+      "updated_at": "2020-04-27T12:44:58.975Z",
+      "topic": 4,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 4,
+    "fields": {
+      "message": "Message is mandatory Argument",
+      "created_at": "2020-04-24T14:47:10.067Z",
+      "updated_at": "2020-11-26T17:59:16.332Z",
+      "topic": 3,
+      "created_by": 1,
+      "updated_by": 1
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 5,
+    "fields": {
+      "message": "this is first post about django signals",
+      "created_at": "2020-04-27T12:45:11.263Z",
+      "updated_at": "2020-04-27T12:45:11.263Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 6,
+    "fields": {
+      "message": "this is second post about django signals",
+      "created_at": "2020-04-27T12:45:30.322Z",
+      "updated_at": "2020-04-27T12:45:30.322Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 7,
+    "fields": {
+      "message": "this is first post about Ruby Topic",
+      "created_at": "2020-04-27T15:34:18.434Z",
+      "updated_at": "2020-04-27T15:34:18.434Z",
+      "topic": 6,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 9,
+    "fields": {
+      "message": "this is first post on Angular Service ..",
+      "created_at": "2020-04-29T10:54:32.261Z",
+      "updated_at": "2020-04-29T10:54:32.276Z",
+      "topic": 8,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 10,
+    "fields": {
+      "message": "this is first post on Ruby Service",
+      "created_at": "2020-04-29T10:55:07.824Z",
+      "updated_at": "2020-04-29T10:55:07.839Z",
+      "topic": 9,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 11,
+    "fields": {
+      "message": "this is first post on react service",
+      "created_at": "2020-04-29T10:56:23.743Z",
+      "updated_at": "2020-04-29T10:56:23.758Z",
+      "topic": 10,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 12,
+    "fields": {
+      "message": "this is first post on Angular object",
+      "created_at": "2020-04-29T11:22:23.431Z",
+      "updated_at": "2020-04-29T11:22:23.448Z",
+      "topic": 11,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 13,
+    "fields": {
+      "message": "This is first post About Django Forms",
+      "created_at": "2020-04-29T12:21:55.731Z",
+      "updated_at": "2020-04-29T12:21:55.746Z",
+      "topic": 12,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 14,
+    "fields": {
+      "message": "This is Django GEO Topic",
+      "created_at": "2020-08-31T09:44:16.147Z",
+      "updated_at": "2020-08-31T09:44:16.175Z",
+      "topic": 13,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 16,
+    "fields": {
+      "message": "Angular Test 1 message",
+      "created_at": "2020-11-22T13:08:27.835Z",
+      "updated_at": "2020-11-22T13:08:27.857Z",
+      "topic": 15,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 17,
+    "fields": {
+      "message": "Angular Test 1 message 2",
+      "created_at": "2020-11-22T13:08:47.577Z",
+      "updated_at": "2020-11-22T13:08:47.577Z",
+      "topic": 15,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 18,
+    "fields": {
+      "message": "Lorem ipsum dolor sit amet",
+      "created_at": "2020-11-22T13:13:06.564Z",
+      "updated_at": "2020-11-26T17:58:41.880Z",
+      "topic": 3,
+      "created_by": 1,
+      "updated_by": 1
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 19,
+    "fields": {
+      "message": "reply to this",
+      "created_at": "2020-11-22T15:54:37.133Z",
+      "updated_at": "2020-11-22T15:54:37.133Z",
+      "topic": 10,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 20,
+    "fields": {
+      "message": "Django Views First Post Edited",
+      "created_at": "2020-11-22T16:01:53.640Z",
+      "updated_at": "2020-11-26T11:39:35.354Z",
+      "topic": 16,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 21,
+    "fields": {
+      "message": "reply to Django Views First Post Edited via Edit.htlm",
+      "created_at": "2020-11-22T16:02:16.486Z",
+      "updated_at": "2020-11-26T11:35:45.783Z",
+      "topic": 16,
+      "created_by": 2,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 22,
+    "fields": {
+      "message": "hii this is reply to   reply to Django Views First Post Edited via Edit.htlm",
+      "created_at": "2020-11-26T11:42:47.158Z",
+      "updated_at": "2020-11-26T11:42:47.159Z",
+      "topic": 16,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 23,
+    "fields": {
+      "message": "# hi this is from markdown",
+      "created_at": "2020-11-26T18:25:09.514Z",
+      "updated_at": "2020-11-26T18:26:44.521Z",
+      "topic": 3,
+      "created_by": 1,
+      "updated_by": 1
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 24,
+    "fields": {
+      "message": "this is reply",
+      "created_at": "2020-11-26T18:58:27.695Z",
+      "updated_at": "2020-11-26T18:58:27.695Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 25,
+    "fields": {
+      "message": "testing reply 123",
+      "created_at": "2020-11-26T18:59:53.256Z",
+      "updated_at": "2020-11-26T18:59:53.257Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 26,
+    "fields": {
+      "message": "esting reply 123esting reply 123esting reply 123esting reply 123esting reply 123",
+      "created_at": "2020-11-26T19:06:05.026Z",
+      "updated_at": "2020-11-26T19:06:05.026Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 27,
+    "fields": {
+      "message": "jbfeebkfbkwbkwbkfbwkbfkwkbfkwkfbw",
+      "created_at": "2020-11-26T19:22:42.692Z",
+      "updated_at": "2020-11-26T19:22:42.692Z",
+      "topic": 5,
+      "created_by": 1,
+      "updated_by": null
+    }
+  },
+  {
+    "model": "boards.post",
+    "pk": 28,
+    "fields": {
+      "message": "this is first post on Angular Service ..\r\n\r\nthis is first post on Angular Service ..\r\n\r\nthis is first post on Angular Service ..\r\n\r\nthis is first post on Angular Service ..\r\n\r\nthis is first post on Angular Service ..",
+      "created_at": "2020-11-26T20:41:21.082Z",
+      "updated_at": "2020-11-26T20:41:21.083Z",
+      "topic": 8,
+      "created_by": 1,
+      "updated_by": null
+    }
+  }
+]

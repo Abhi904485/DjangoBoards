@@ -1,16 +1,21 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .models import User
-from .forms import UserCreationForm, UserLoginForm, PasswordResetForm, PasswordResetConfirm, PasswordChangeForm
+from .forms import (
+    UserCreationForm,
+    UserLoginForm,
+    PasswordResetForm,
+    PasswordResetConfirm,
+    PasswordChangeForm,
+    UserUpdateForm)
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -21,8 +26,14 @@ def signup(request):
         if user_creation_form.is_valid():
             user = user_creation_form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('boards:home')
         else:
+            if user_creation_form.errors.get('password2', False):
+                if user_creation_form.errors['password2'].data[0].code == "password_too_short":
+                    user_creation_form.add_error('password1',
+                                                 error="password is too short It must contain at least 8 characters.")
+                if user_creation_form.errors['password2'].data[0].code == "password_too_common":
+                    user_creation_form.add_error('password1', error="password is too Common")
             return render(request, 'signup.html', context={'form': user_creation_form})
     else:
         user_creation_form = UserCreationForm()
@@ -31,7 +42,7 @@ def signup(request):
 
 def signout(request):
     logout(request)
-    return redirect('home')
+    return redirect('boards:home')
 
 
 def signin(request):
@@ -42,11 +53,11 @@ def signin(request):
         user = authenticate(request, email=email, password=password)
         if user and user.is_active:
             login(request, user)
-            try:
-                if request.GET['next']:
-                    return redirect(request.GET['next'])
-            except Exception as e:
-                return redirect('home')
+            final_url = request.GET.get('next')
+            if final_url:
+                return redirect(final_url)
+            else:
+                return redirect('boards:home')
         else:
             messages.error(request, "Please Enter Correct Credential")
             return render(request, 'signin.html', context={'form': user_login_form})
@@ -81,31 +92,37 @@ def password_reset_view(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             email = password_reset_form.cleaned_data['email']
-            current_site = get_current_site(request)
-            site_name = current_site.name
-            domain = current_site.domain
-            extra_email_context = {}
-            use_https = False
-            subject_template_name = "accounts/password_reset_subject.txt"
-            email_template_name = "accounts/password_reset_email.html"
-            from_email = "test@gmail.com"
-            html_email_template_name = None
-            for user in get_users(email):
-                context = {
-                    'email': email,
-                    'domain': domain,
-                    'site_name': site_name,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'user': user,
-                    'token': default_token_generator.make_token(user),
-                    'protocol': 'https' if use_https else 'http',
-                    **(extra_email_context or {}),
+            if User.objects.filter(email=email).exists():
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+                extra_email_context = {}
+                use_https = False
+                subject_template_name = "password_reset_subject.txt"
+                email_template_name = "password_reset_email.html"
+                from_email = "test@gmail.com"
+                html_email_template_name = None
+                for user in get_users(email):
+                    context = {
+                        'email': email,
+                        'domain': domain,
+                        'site_name': site_name,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'user': user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'https' if use_https else 'http',
+                        **(extra_email_context or {}),
 
-                }
-                send_mail(subject_template_name, email_template_name, context, from_email, user.email,
-                          html_email_template_name=html_email_template_name,
-                          )
-            return redirect('password_reset_done')
+                    }
+                    send_mail(subject_template_name, email_template_name, context, from_email, user.email,
+                              html_email_template_name=html_email_template_name,
+                              )
+                return redirect('accounts:password_reset_done')
+            else:
+                messages.error(request,
+                               "Please Enter Valid Email Address {} not registered in our Database ".format(email))
+                return render(request, 'password_reset.html', context={'form': password_reset_form})
+
         else:
             password_reset_form = PasswordResetForm(request.POST)
             # messages.error(request, "Email Field is Mandatory ")
@@ -141,7 +158,7 @@ def password_reset_confirm(request, uidb64, token):
         if password_reset_confirm_form.is_valid():
             user.set_password(password_reset_confirm_form.cleaned_data['password1'])
             user.save()
-            return redirect('password_reset_complete')
+            return redirect('accounts:password_reset_complete')
         else:
             validlink = True
             return render(request, 'password_reset_confirm.html',
@@ -166,8 +183,11 @@ def password_reset_confirm(request, uidb64, token):
                     request.session[INTERNAL_RESET_SESSION_TOKEN] = token
                     redirect_url = request.path.replace(token, reset_url_token)
                     return redirect(redirect_url)
-
-    return render(request, 'password_reset_failed.html')
+                else:
+                    validlink = False
+                    password_reset_confirm_form = PasswordResetConfirm()
+                    return render(request, 'password_reset_failed.html',
+                                  context={'validlink': validlink, 'form': password_reset_confirm_form})
 
 
 def password_reset_complete(request):
@@ -175,7 +195,6 @@ def password_reset_complete(request):
     return render(request, 'password_reset_complete.html')
 
 
-@login_required
 def change_password(request):
     if request.method == "POST":
         password_change_form = PasswordChangeForm(request.POST)
@@ -188,12 +207,14 @@ def change_password(request):
                 user.set_password(password2)
                 user.save()
                 messages.success(request, "Password changed Successfully")
-                return redirect('password_change_done')
+                return redirect('accounts:password_change_done')
             else:
-                messages.error(request, "Old password is Wrong ! Please Enter correct old password ")
+                messages.error(request, "Old password is Wrong ! Please Enter the correct one ")
+                password_change_form.add_error('password1', error="Existing password is Wrong , enter the correct one")
+                password_change_form.add_error('password2', error="Enter the new password")
                 return render(request, 'password_change.html', context={'form': password_change_form})
         else:
-            messages.error(request, "Password and Confirm Password are mandatory Fields")
+            messages.error(request, "The two password fields didn’t match")
             return render(request, 'password_change.html', context={'form': password_change_form})
 
     else:
@@ -203,3 +224,17 @@ def change_password(request):
 
 def change_password_done(request):
     return render(request, 'password_change_done.html')
+
+
+def profile(request):
+    if request.method == "POST":
+        user = get_object_or_404(User, pk=request.user.pk)
+        user_update_form = UserUpdateForm(request.POST, instance=user)
+        if user_update_form.is_valid():
+            user_update_form.save(commit=False)
+            user.save()
+            return redirect('accounts:profile')
+    else:
+        user = request.user
+        user_update_form = UserUpdateForm(instance=user)
+        return render(request, 'profile.html', context={'form': user_update_form})

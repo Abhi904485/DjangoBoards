@@ -1,0 +1,36 @@
+[
+{
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$oOvl5ajLEyIR$+Tgqg3HLQzssoDsAGpi9wFLUa0GGzTfnrwxtv7axC0k=",
+        "last_login": "2020-11-26T20:41:06.505Z",
+        "is_superuser": true,
+        "email": "Interview208017@gmail.com",
+        "first_name": "root",
+        "last_name": "root",
+        "username": "root",
+        "date_joined": "2020-07-22T09:38:14.026Z",
+        "is_staff": true,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$kB0a0c0aE58g$DF7BhYV2DEvTX6gy7jRroESWLYCQaY1VfPqdcAuHfGw=",
+        "last_login": "2020-11-22T16:00:44.320Z",
+        "is_superuser": false,
+        "email": "Abhishek9044855265@gmail.com",
+        "first_name": "ABHISHEK",
+        "last_name": "SINGH",
+        "username": "abhishek",
+        "date_joined": "2020-11-22T16:00:44.229Z",
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

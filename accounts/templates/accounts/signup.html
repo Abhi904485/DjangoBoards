@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <h1 class="text-center my-4">
-            <a href="{% url 'home' %}">Django Boards</a>
+            <a href="{% url 'boards:home' %}">Django Boards</a>
         </h1>
         <div class=" justify-content-center">
             <div class="card">
@@ -14,11 +14,11 @@
                         <form method="post" novalidate>
                             {% csrf_token %}
                             {% include 'includes/form.html' %}
-                            <button class="btn btn-info" type="submit">Sign UP</button>
+                            <button class="btn btn-info" type="submit">Sign up</button>
                         </form>
                     </div>
                     <div class="card-footer text-muted text-center">
-                        Already have an account ? <a href="{% url 'sign-in' %}">login</a>
+                        Already have an account ? <a href="{% url 'accounts:sign-in' %}">login</a>
                     </div>
                 </div>
             </div>

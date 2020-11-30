@@ -15,6 +15,8 @@ from django.contrib.messages import constants as messages
 from decouple import config, Csv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'boards',
     'debug_toolbar',
     'widget_tweaks',
@@ -132,6 +135,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn")
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -202,15 +206,12 @@ CELERY_CACHE_BACKEND = "django-cache"
 #     print("Running periodic task!")
 
 
-
-
 # from celery.schedules import crontab
 # from celery.task import periodic_task
 #
 # @periodic_task(run_every=crontab(hour=7, minute=30, day_of_week=1))
 # def every_monday_morning():
 #     print("Execute every Monday at 7:30AM.")
-
 
 
 # https://docs.celeryproject.org/en/stable/userguide/periodic-tasks.html#introduction

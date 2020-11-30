@@ -15,17 +15,31 @@ class UserCreationForm(forms.ModelForm):
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}))
 
     error_messages = {
-        'password_mismatch': _('The two password fields didn’t match.'),
+        'password_mismatch': _('The two password fields did’t match.'),
     }
+
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': self.fields['username'].label})
+        self.fields['email'].widget.attrs.update({'placeholder': self.fields['email'].label})
+        self.fields['first_name'].widget.attrs.update({'placeholder': self.fields['first_name'].label})
+        self.fields['last_name'].widget.attrs.update({'placeholder': self.fields['last_name'].label})
+        self.fields['password1'].widget.attrs.update({'placeholder': "Enter password"})
+        self.fields['password2'].help_text = "<li>Password should be 8 characters in length</li><li>Password should Contain special Characters</li>"
+        self.fields['password2'].widget.attrs.update({'placeholder': "Confirm password"})
 
     class Meta:
         model = User
         fields = ['email', 'username', 'first_name', 'last_name', 'password1', 'password2']
 
+    def add_error(self, field, error):
+        return super().add_error(field, error)
+
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
+            self.add_error('password1', error=self.error_messages['password_mismatch'])
             raise forms.ValidationError(
                 self.error_messages['password_mismatch'],
                 code='password_mismatch',
@@ -51,6 +65,16 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'first_name', 'last_name']
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'readonly': 'true'})
+
+
 class UserLoginForm(forms.Form):
     email = forms.CharField(label="Email", max_length=254, strip=True, widget=forms.EmailInput(),
                             help_text=" Enter a Valid Email", error_messages={'required': 'Email is Required'})
@@ -70,10 +94,10 @@ class PasswordResetForm(forms.Form):
 class PasswordResetConfirm(forms.Form):
     password1 = forms.CharField(label="Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
-                                error_messages={'required': 'this should match'})
+                                error_messages={'required': 'Please Enter new Password'})
     password2 = forms.CharField(label="Confirm Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
-                                error_messages={'required': 'this should match'})
+                                error_messages={'required': 'Please Re Enter New Password'})
 
     error_messages = {
         'password_mismatch': _('The two password fields didn’t match.'),
@@ -83,11 +107,15 @@ class PasswordResetConfirm(forms.Form):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
+            self.add_error('password1', error=self.error_messages['password_mismatch'])
             raise forms.ValidationError(
                 self.error_messages['password_mismatch'],
                 code='password_mismatch',
             )
         return password2
+
+    def add_error(self, field, error):
+        return super().add_error(field, error)
 
 
 class GenerateRandomUserForm(forms.Form):
@@ -97,7 +125,25 @@ class GenerateRandomUserForm(forms.Form):
 class PasswordChangeForm(forms.Form):
     password1 = forms.CharField(label="Old Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
-                                error_messages={'required': "Please Enter old password"})
+                                error_messages={'required': "Please Enter The Existing Password"})
     password2 = forms.CharField(label="New Password", max_length=128, strip=False,
                                 widget=forms.PasswordInput({'autocomplete': 'new-password'}), required=True,
-                                error_messages={"required": "Enter the new password "})
+                                error_messages={"required": "Please Enter The New Password "})
+
+    error_messages = {
+        'password_mismatch': _('The two password fields didn’t match.'),
+    }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and not password2:
+            self.add_error('password1', error="Please Enter The Existing Password")
+        if not password1 and password2:
+            self.add_error('password2', "Please Enter The New Password")
+        return cleaned_data
+
+    def add_error(self, field, error):
+        return super().add_error(field, error)

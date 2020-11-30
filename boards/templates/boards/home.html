@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 
 {% block breadcrumb %}
     <li class="breadcrumb-item active">Boards</li>
@@ -16,18 +16,36 @@
             </tr>
             </thead>
             <tbody>
-            {% for board in boards %}
+            {% for board in board.object_list %}
                 <tr>
-                    <td class="align-middle "><a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a> <br> <small
-                            class=" text-muted d-block">{{ board.description }}</small></td>
-                    <td class="align-middle">{{ board.posts }}</td>
-                    <td class="align-middle">{{ board.topics.count }}</td>
-                    <td class="align-middle">{{ board.get_last_post.last_updated_time }}
-                        by {{ board.get_last_post.last_updated_user }}</td>
+                    <td class="align-middle"><a href="{% url 'boards:board_topics' board.pk %}">{{ board.name }}</a>
+                        <br> <small
+                                class=" text-muted d-block">{{ board.description }}</small></td>
+                    <td class="align-middle">{{ board.posts_count }}</td>
+                    <td class="align-middle">{{ board.topics_count }}</td>
+                    <td class="align-middle">
+                        {% with board.get_last_post_updated_time_updated_user as last_post %}
+                            {% if last_post %}
+                                <a href="{% url 'boards:topic_posts' board.pk  last_post.topic_id %}">
+                                    By {{ last_post.created_by__username }}  {{ last_post.created_at|naturaltime }}
+                                </a>
+
+                            {% else %}
+                                <small class="text-muted">
+                                    <em>No posts yet.</em>
+                                </small>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
+
+    {% with board as page_obj %}
+        {% include 'includes/pagination.html' %}
+    {% endwith %}
 
 {% endblock %}

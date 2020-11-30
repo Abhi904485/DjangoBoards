@@ -5,15 +5,18 @@
         {% if task_id %}
             <div class='progress-wrapper'>
                 <div id='progress-bar' class='progress-bar-striped'
-                     style="background-color: #68a9ef; width: 0%;">&nbsp;
+                     style="background-color: #68a9ef; width: 0;">&nbsp;
                 </div>
             </div>
             <div id="progress-bar-message">Waiting for progress to start...</div>
         {% endif %}
         <div id="celery-result"></div>
     </div>
+{% endblock %}
+
+{% block javascript %}
     <script>
-        var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+        const progressUrl = "{% url 'my_celery_progress_bar:celery_progress:task_status' task_id %}";
 
         function get_users() {
             window.location.replace('{% url 'my_celery_progress_bar:user-list' %}')
