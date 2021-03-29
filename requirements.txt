@@ -76,7 +76,7 @@ pyasn1-modules==0.2.8
 pycodestyle==2.6.0
 pycparser==2.20
 pydevd-pycharm==202.6397.98
-Pygments==2.6.1
+Pygments==2.7.4
 PyHamcrest==2.0.2
 pylint==2.5.3
 pylint-django==2.3.0
