@@ -31,7 +31,7 @@ django-channels==0.7.0
 django-composite-foreignkey==1.1.0
 django-compositekey==1.5.0
 django-crispy-forms==1.9.2
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
 django-filter==2.3.0
 django-heroku==0.3.1
 django-rest-swagger==2.2.0
